@@ -8,9 +8,11 @@ package paint;
 
 import Panels.PanelBotonesColores2;
 import Panels.PanelColores;
+import Panels.PanelFormas;
 import Panels.Tapiz;
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 /**
@@ -36,11 +38,15 @@ public class Paint {
         JFrame f = new JFrame("Paint");
         f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         f.setLayout(new BorderLayout());
-        //Colores
-        f.add(new PanelBotonesColores2());
-        f.add(new PanelColores(),BorderLayout.NORTH);
+        //Colores y formas
+        JPanel colores = new JPanel();
+        colores.setLayout(new BorderLayout());
+        colores.add(new PanelBotonesColores2(),BorderLayout.CENTER);
+        colores.add(new PanelColores(),BorderLayout.EAST);
+        colores.add(new PanelFormas(),BorderLayout.WEST);
+        f.add(colores,BorderLayout.NORTH);
         //Tapiz
-        f.add(new Tapiz(),BorderLayout.SOUTH);
+        f.add(new Tapiz(),BorderLayout.CENTER);
         f.pack();
         f.setVisible(true);
     }

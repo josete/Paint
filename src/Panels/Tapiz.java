@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Panels;
 
 import java.awt.Color;
@@ -24,8 +23,8 @@ public class Tapiz extends JPanel {
     private int squareY = 50;
     private int squareW = 20;
     private int squareH = 20;
-    static public Color colorR=Color.red;
-    static public Color colorB=Color.black;
+    static public Color colorR = Color.white;
+    static public Color colorB = Color.black;
 
     public Tapiz() {
 
@@ -42,9 +41,12 @@ public class Tapiz extends JPanel {
                 moveSquare(e.getX(), e.getY());
             }
         });
+
+        PanelBotonesColores2.botonBorde.setBackground(colorB);
+        PanelBotonesColores2.botonRelleno.setBackground(colorR);
     }
 
-        private void moveSquare(int x, int y) {
+    private void moveSquare(int x, int y) {
         int OFFSET = 1;
         if ((squareX != x) || (squareY != y)) {
             repaint(squareX, squareY, squareW + OFFSET, squareH + OFFSET);
@@ -54,8 +56,8 @@ public class Tapiz extends JPanel {
         }
 
     }
-        
-        public Dimension getPreferredSize() {
+
+    public Dimension getPreferredSize() {
         return new Dimension(250, 200);
     }
 
@@ -66,5 +68,4 @@ public class Tapiz extends JPanel {
         g.setColor(colorB);
         g.drawRect(squareX, squareY, squareW, squareH);
     }
-    }
-    
+}

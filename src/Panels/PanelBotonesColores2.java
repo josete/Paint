@@ -20,6 +20,8 @@ public class PanelBotonesColores2 extends JPanel implements ActionListener{
     
     static public boolean borde = false;
     static public boolean relleno = false;
+    public static JButton botonBorde;
+    public static JButton botonRelleno;
     
     public PanelBotonesColores2(){
         super(new GridLayout(1,2));
@@ -27,11 +29,11 @@ public class PanelBotonesColores2 extends JPanel implements ActionListener{
     }
     
     public void crearBotones(){
-        JButton botonBorde = new JButton("Color borde");
+        botonBorde = new JButton("Color borde");
         this.add(botonBorde);
         botonBorde.addActionListener(this);
         
-        JButton botonRelleno= new JButton("Color relleno");
+        botonRelleno= new JButton("Color relleno");
         this.add(botonRelleno);
         botonRelleno.addActionListener(this);
     }
