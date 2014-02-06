@@ -6,6 +6,7 @@
 
 package Panels;
 
+import Funcionalidad.SeleccionColor;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -36,7 +37,13 @@ public class PanelColores extends JPanel{
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     JButton boton = (JButton) e.getSource();
-                    Tapiz.color = boton.getBackground();
+                    if(PanelBotonesColores2.borde){
+                        SeleccionColor.cambiarBorde(boton.getBackground());
+                        PanelBotonesColores2.borde=false;
+                    }else if(PanelBotonesColores2.relleno){
+                        SeleccionColor.cambiarRelleno(boton.getBackground());
+                        PanelBotonesColores2.relleno=false;
+                    }
                 }
             }); 
             boton.setBackground(colores[i]);

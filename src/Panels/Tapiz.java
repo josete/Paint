@@ -24,11 +24,12 @@ public class Tapiz extends JPanel {
     private int squareY = 50;
     private int squareW = 20;
     private int squareH = 20;
-    static public Color color=Color.red;
+    static public Color colorR=Color.red;
+    static public Color colorB=Color.black;
 
     public Tapiz() {
 
-        setBorder(BorderFactory.createLineBorder(Color.black));
+        setBorder(BorderFactory.createLineBorder(colorB));
 
         addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
@@ -60,9 +61,9 @@ public class Tapiz extends JPanel {
 
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.setColor(color);
+        g.setColor(colorR);
         g.fillRect(squareX, squareY, squareW, squareH);
-        g.setColor(Color.BLACK);
+        g.setColor(colorB);
         g.drawRect(squareX, squareY, squareW, squareH);
     }
     }
