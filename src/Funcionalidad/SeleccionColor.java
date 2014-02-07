@@ -6,6 +6,7 @@
 
 package Funcionalidad;
 
+import Panels.PanelBotonesColores2;
 import Panels.Tapiz;
 import java.awt.Color;
 
@@ -18,10 +19,12 @@ public class SeleccionColor {
     
     public static void cambiarBorde(Color color){
         Tapiz.colorB = color;
+        PanelBotonesColores2.botonBorde.setBackground(color);
     }
     
     public static void cambiarRelleno(Color color){
         Tapiz.colorR = color;
+        PanelBotonesColores2.botonRelleno.setBackground(color);
     }
     
 }
