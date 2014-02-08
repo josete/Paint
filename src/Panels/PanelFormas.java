@@ -36,6 +36,8 @@ public class PanelFormas extends JPanel implements ActionListener{
         JButton boton = (JButton)e.getSource();
         if(boton.getText().equals("Cuadrado")){
             SeleccionForma.activarCuadrado();
+        }else if(boton.getText().equals("Linea")){
+            SeleccionForma.activarLinea();
         }
     }
     

@@ -17,4 +17,8 @@ public class SeleccionForma {
     public static void activarCuadrado(){
         Tapiz.cuadrado=true;
     }
+    
+    public static void activarLinea(){
+        Tapiz.linea=true;
+    }
 }

@@ -6,6 +6,7 @@
 package Panels;
 
 import Formas.Cuadrado;
+import Formas.Linea;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -31,6 +32,7 @@ public class Tapiz extends JPanel implements MouseListener, MouseMotionListener 
     static public Color colorR = Color.white;
     static public Color colorB = Color.black;
     static public boolean cuadrado = false;
+    static public boolean linea = false;
     private Shape forma = null;
     Point in;
     Point f;
@@ -78,22 +80,32 @@ public class Tapiz extends JPanel implements MouseListener, MouseMotionListener 
          g.drawRect(squareX, squareY, squareW, squareH);*/
         Graphics2D g2 = (Graphics2D) g;
         if (forma != null) {
-            g2.setColor(colorB);
-            g2.draw(forma);
-            g2.setColor(colorR);
-            g2.fill(forma);
+            if (forma instanceof Linea) {
+                g2.setColor(colorB);
+                g2.draw(forma);
+            } else {
+                g2.setColor(colorB);
+                g2.draw(forma);
+                g2.setColor(colorR);
+                g2.fill(forma);
+            }
         }
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        int OFFSET=1;
+        int OFFSET = 1;
         if (cuadrado) {
             f = new Point(e.getX(), e.getY());
             Cuadrado rec = new Cuadrado(in, f, colorR, colorB);
             forma = rec.devolverCuadrado();
             //this.repaint();
             repaint(in.x, in.y, rec.getAncho() + OFFSET, rec.getAlto() + OFFSET);
+        }else if(linea){
+             f = new Point(e.getX(), e.getY());
+             Linea l = new Linea(in,f);
+             forma = l.devolverLinea();
+             repaint(in.x, in.y,l.calcularLargo()+OFFSET,l.calcularAlto()+OFFSET);
         }
     }
 
@@ -104,12 +116,12 @@ public class Tapiz extends JPanel implements MouseListener, MouseMotionListener 
 
     @Override
     public void mouseClicked(MouseEvent e) {
- 
+
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if (cuadrado) {
+        if (cuadrado || linea) {
             in = new Point(e.getX(), e.getY());
         }
     }
