@@ -8,6 +8,8 @@ package Panels;
 import Formas.Circulo;
 import Formas.Cuadrado;
 import Formas.Linea;
+import Formas.RectanguloRedondeado;
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -35,6 +37,7 @@ public class Tapiz extends JPanel implements MouseListener, MouseMotionListener 
     static public boolean cuadrado = false;
     static public boolean linea = false;
     static public boolean circulo = false;
+    static public boolean cuadradoRedondeado = false;
     private Shape forma = null;
     Point in;
     Point f;
@@ -86,6 +89,7 @@ public class Tapiz extends JPanel implements MouseListener, MouseMotionListener 
                 g2.setColor(colorB);
                 g2.draw(forma);
             } else {
+                g2.setStroke(new BasicStroke(PanelBarrasDeslizantesBorde.getTamanioBorde()));
                 g2.setColor(colorB);
                 g2.draw(forma);
                 g2.setColor(colorR);
@@ -113,6 +117,11 @@ public class Tapiz extends JPanel implements MouseListener, MouseMotionListener 
             Circulo c = new Circulo(in,f);
             forma = c.devolverElipse();
             repaint(in.x, in.y,c.calcularAncho()+OFFSET,c.calcularAlto()+OFFSET);
+        }else if(cuadradoRedondeado){
+            f = new Point(e.getX(), e.getY());
+            RectanguloRedondeado rr = new RectanguloRedondeado(in,f);
+            forma = rr.devolverRectangulo();
+            repaint(in.x, in.y,rr.calcularLargo()+OFFSET,rr.calcularAlto()+OFFSET);
         }
     }
 
@@ -128,7 +137,7 @@ public class Tapiz extends JPanel implements MouseListener, MouseMotionListener 
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if (cuadrado || linea || circulo) {
+        if (cuadrado || linea || circulo || cuadradoRedondeado) {
             in = new Point(e.getX(), e.getY());
         }
     }

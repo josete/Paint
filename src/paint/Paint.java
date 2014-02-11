@@ -6,6 +6,8 @@
 
 package paint;
 
+import Panels.PanelBarrasDeslizantesBorde;
+import Panels.PanelBarrasDeslizantesLados;
 import Panels.PanelBotonesColores2;
 import Panels.PanelColores;
 import Panels.PanelFormas;
@@ -49,6 +51,11 @@ public class Paint {
         f.add(new Tapiz(),BorderLayout.CENTER);
         f.pack();
         f.setVisible(true);
+        //Barras deslizantesç
+        JPanel panelBarras = new JPanel(new BorderLayout());
+        panelBarras.add(new PanelBarrasDeslizantesLados(),BorderLayout.NORTH);
+        panelBarras.add(new PanelBarrasDeslizantesBorde(),BorderLayout.SOUTH);
+        f.add(panelBarras,BorderLayout.WEST);
     }
     
 }
