@@ -8,32 +8,23 @@ package Formas;
 
 import java.awt.Color;
 import java.awt.Point;
-import java.awt.Rectangle;
+import java.awt.geom.Ellipse2D;
 
 /**
  *
  * @author Familia
  */
-public class Elipse {
+public class Circulo {
     
     Point inicio;
     Point fin;
-    Color colorR;
-    Color colorB;
     int ancho;
     int alto;
 
-    public Elipse(Point inicio, Point fin, Color colorR, Color colorB) {
+    public Circulo(Point inicio, Point fin) {
         this.inicio = inicio;
         this.fin = fin;
-        this.colorR = colorR;
-        this.colorB = colorB;
     }
-
-    public Elipse() {
-    }
-    
-    
 
     public Point getInicio() {
         return inicio;
@@ -51,25 +42,10 @@ public class Elipse {
         this.fin = fin;
     }
 
-    public Color getColorR() {
-        return colorR;
-    }
-
-    public void setColorR(Color colorR) {
-        this.colorR = colorR;
-    }
-
-    public Color getColorB() {
-        return colorB;
-    }
-
-    public void setColorB(Color colorB) {
-        this.colorB = colorB;
-    }
     
-    public Rectangle devolverElipse(){
-        
-        return null;
+    public Ellipse2D devolverElipse(){
+        Ellipse2D e = new Ellipse2D.Double(inicio.x,inicio.y,calcularAncho(),calcularAlto());
+        return e;
     }
     
     public int calcularAncho(){

@@ -15,10 +15,20 @@ import Panels.Tapiz;
 public class SeleccionForma {
     
     public static void activarCuadrado(){
+        Tapiz.linea =  false;
+        Tapiz.circulo = false;
         Tapiz.cuadrado=true;
     }
     
     public static void activarLinea(){
+        Tapiz.cuadrado =  false;
+        Tapiz.circulo = false;
         Tapiz.linea=true;
+    }
+    
+    public static void activarCirculo(){
+        Tapiz.linea =  false;
+        Tapiz.cuadrado = false;
+        Tapiz.circulo=true;
     }
 }

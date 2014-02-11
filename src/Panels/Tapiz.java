@@ -5,6 +5,7 @@
  */
 package Panels;
 
+import Formas.Circulo;
 import Formas.Cuadrado;
 import Formas.Linea;
 import java.awt.Color;
@@ -33,6 +34,7 @@ public class Tapiz extends JPanel implements MouseListener, MouseMotionListener 
     static public Color colorB = Color.black;
     static public boolean cuadrado = false;
     static public boolean linea = false;
+    static public boolean circulo = false;
     private Shape forma = null;
     Point in;
     Point f;
@@ -106,6 +108,11 @@ public class Tapiz extends JPanel implements MouseListener, MouseMotionListener 
              Linea l = new Linea(in,f);
              forma = l.devolverLinea();
              repaint(in.x, in.y,l.calcularLargo()+OFFSET,l.calcularAlto()+OFFSET);
+        }else if(circulo){
+            f = new Point(e.getX(), e.getY());
+            Circulo c = new Circulo(in,f);
+            forma = c.devolverElipse();
+            repaint(in.x, in.y,c.calcularAncho()+OFFSET,c.calcularAlto()+OFFSET);
         }
     }
 
@@ -121,7 +128,7 @@ public class Tapiz extends JPanel implements MouseListener, MouseMotionListener 
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if (cuadrado || linea) {
+        if (cuadrado || linea || circulo) {
             in = new Point(e.getX(), e.getY());
         }
     }
