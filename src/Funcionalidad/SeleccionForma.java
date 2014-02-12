@@ -41,4 +41,12 @@ public class SeleccionForma {
         Tapiz.circulo= false;
         Tapiz.cuadradoRedondeado=true;
     }
+    
+    public static void activarPoligono(){
+        Tapiz.linea =  false;
+        Tapiz.cuadrado = false;
+        Tapiz.circulo= false;
+        Tapiz.cuadradoRedondeado=false;
+        Tapiz.poligono=true;
+    }
 }

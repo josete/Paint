@@ -19,7 +19,7 @@ import javax.swing.event.ChangeListener;
 public class PanelBarrasDeslizantesBorde extends JPanel implements ChangeListener{
     
     JSlider slider;
-    static int borde;
+    static float borde;
     public PanelBarrasDeslizantesBorde(){
         //this.setBorder(BorderFactory.createLineBorder(Color.black));
         JLabel label = new JLabel("Ancho de borde");
@@ -30,6 +30,7 @@ public class PanelBarrasDeslizantesBorde extends JPanel implements ChangeListene
         slider.setMajorTickSpacing(5);
         slider.setMinorTickSpacing(5);
         slider.setPaintLabels(true);//Pintar los numeros en la pantalla
+        slider.addChangeListener(this);
         this.add(slider);
     }
 
@@ -38,7 +39,7 @@ public class PanelBarrasDeslizantesBorde extends JPanel implements ChangeListene
         borde = slider.getValue();
     }
     
-    public static int getTamanioBorde(){
+    public static float getTamanioBorde(){
         return borde;
     }
     

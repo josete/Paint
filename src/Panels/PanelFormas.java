@@ -46,6 +46,8 @@ public class PanelFormas extends JPanel implements ActionListener{
             SeleccionForma.activarCirculo();
         }else if(boton.getText().equals("Cuadrado redondeado")){
             SeleccionForma.activarCuadradoRedondeado();
+        }else if(boton.getText().equals("Poligono")){
+            SeleccionForma.activarPoligono();
         }
     }
     

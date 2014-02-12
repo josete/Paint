@@ -17,6 +17,7 @@ import javax.swing.event.ChangeListener;
 public class PanelBarrasDeslizantesLados extends JPanel implements ChangeListener{
     
     JSlider slider;
+    static int lados;
     public PanelBarrasDeslizantesLados(){
         JLabel label = new JLabel("Numero de lados");
         this.add(label);
@@ -32,8 +33,11 @@ public class PanelBarrasDeslizantesLados extends JPanel implements ChangeListene
 
     @Override
     public void stateChanged(ChangeEvent e) {
-        System.out.println(slider.getValue());
+        lados=slider.getValue();
     }
     
+    public static int getLados(){
+        return lados;
+    }
     
 }

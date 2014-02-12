@@ -8,6 +8,7 @@ package Panels;
 import Formas.Circulo;
 import Formas.Cuadrado;
 import Formas.Linea;
+import Formas.Poligono;
 import Formas.RectanguloRedondeado;
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -38,10 +39,12 @@ public class Tapiz extends JPanel implements MouseListener, MouseMotionListener 
     static public boolean linea = false;
     static public boolean circulo = false;
     static public boolean cuadradoRedondeado = false;
+    static public boolean poligono=false;
     private Shape forma = null;
     Point in;
     Point f;
-
+    int clicks=0;
+    Point[] puntos=null;
     public Tapiz() {
 
         setBorder(BorderFactory.createLineBorder(colorB));
@@ -89,8 +92,11 @@ public class Tapiz extends JPanel implements MouseListener, MouseMotionListener 
                 g2.setColor(colorB);
                 g2.draw(forma);
             } else {
-                g2.setStroke(new BasicStroke(PanelBarrasDeslizantesBorde.getTamanioBorde()));
+                /*String tamanio = String.valueOf(PanelBarrasDeslizantesBorde.getTamanioBorde());
+                System.out.println(tamanio);
+                g2.setStroke(new BasicStroke(PanelBarrasDeslizantesBorde.getTamanioBorde()));*/
                 g2.setColor(colorB);
+                System.out.println(forma);
                 g2.draw(forma);
                 g2.setColor(colorR);
                 g2.fill(forma);
@@ -139,6 +145,22 @@ public class Tapiz extends JPanel implements MouseListener, MouseMotionListener 
     public void mousePressed(MouseEvent e) {
         if (cuadrado || linea || circulo || cuadradoRedondeado) {
             in = new Point(e.getX(), e.getY());
+        }else if(poligono){
+            System.out.println(clicks);
+            System.out.println(PanelBarrasDeslizantesLados.getLados());
+            if(puntos==null){;
+                puntos = new Point[PanelBarrasDeslizantesLados.getLados()+1];
+            }
+            puntos[clicks]=new Point(e.getX(), e.getY());
+            if(clicks==PanelBarrasDeslizantesLados.getLados()){
+                System.out.println(puntos.length);
+                Poligono p= new Poligono(puntos, PanelBarrasDeslizantesLados.getLados());
+                forma=p.devolverPoligono();
+                repaint(puntos[0].x, puntos[0].y,500,500);
+                clicks=0;
+            }else{
+                  clicks++;
+            }
         }
     }
 
