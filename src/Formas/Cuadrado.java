@@ -68,7 +68,7 @@ public class Cuadrado{
     }
     
     public Rectangle devolverCuadrado(){
-        
+        calcularCambio();
         Rectangle rec = new Rectangle(inicio.x,inicio.y,calcularAncho(),calcularAlto());
         return rec;
     }
@@ -101,7 +101,18 @@ public class Cuadrado{
     }
     
     
-    
+    public void calcularCambio(){
+        Point intermedio;
+        if(fin.x<inicio.x){
+            intermedio = fin;
+            fin=inicio;
+            inicio=intermedio;
+        }/*else if(fin.y>inicio.y){
+            intermedio = fin;
+            fin=inicio;
+            inicio=intermedio;
+        }*/
+    }
     
     
     

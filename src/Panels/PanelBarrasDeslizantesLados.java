@@ -21,7 +21,7 @@ public class PanelBarrasDeslizantesLados extends JPanel implements ChangeListene
     public PanelBarrasDeslizantesLados(){
         JLabel label = new JLabel("Numero de lados");
         this.add(label);
-        slider = new JSlider(JSlider.VERTICAL, 0, 20, 3); 
+        slider = new JSlider(JSlider.VERTICAL, 0, 20, 0); 
         slider.setInverted(false); 
         slider.setPaintTicks(true);
         slider.setMajorTickSpacing(5);

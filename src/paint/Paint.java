@@ -11,6 +11,7 @@ import Panels.PanelBarrasDeslizantesLados;
 import Panels.PanelBotonesColores2;
 import Panels.PanelColores;
 import Panels.PanelFormas;
+import Panels.PanelPixeles;
 import Panels.Tapiz;
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
@@ -51,11 +52,13 @@ public class Paint {
         f.add(new Tapiz(),BorderLayout.CENTER);
         f.pack();
         f.setVisible(true);
-        //Barras deslizantesç
+        //Barras deslizantes
         JPanel panelBarras = new JPanel(new BorderLayout());
         panelBarras.add(new PanelBarrasDeslizantesLados(),BorderLayout.NORTH);
         panelBarras.add(new PanelBarrasDeslizantesBorde(),BorderLayout.SOUTH);
         f.add(panelBarras,BorderLayout.WEST);
+        //Panel pixeles
+        f.add(new PanelPixeles(),BorderLayout.SOUTH);
     }
     
 }

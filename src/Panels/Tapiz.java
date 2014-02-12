@@ -10,6 +10,7 @@ import Formas.Cuadrado;
 import Formas.Linea;
 import Formas.Poligono;
 import Formas.RectanguloRedondeado;
+import Funcionalidad.Objeto;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -20,6 +21,7 @@ import java.awt.Shape;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
@@ -39,12 +41,21 @@ public class Tapiz extends JPanel implements MouseListener, MouseMotionListener 
     static public boolean linea = false;
     static public boolean circulo = false;
     static public boolean cuadradoRedondeado = false;
-    static public boolean poligono=false;
+    static public boolean poligono = false;
     private Shape forma = null;
     Point in;
     Point f;
-    int clicks=0;
-    Point[] puntos=null;
+    int clicks = 0;
+    int lados = 0;
+    //Point[] puntos=null;
+    ArrayList<Point> puntos = new ArrayList();
+    ArrayList<Objeto> dibujos = new ArrayList();
+    //Variables
+    int x = 0;
+    int y = 0;
+    int alto = 0;
+    int ancho = 0;
+
     public Tapiz() {
 
         setBorder(BorderFactory.createLineBorder(colorB));
@@ -88,18 +99,27 @@ public class Tapiz extends JPanel implements MouseListener, MouseMotionListener 
          g.drawRect(squareX, squareY, squareW, squareH);*/
         Graphics2D g2 = (Graphics2D) g;
         if (forma != null) {
+            g2.setColor(colorR);
+            g2.fill(forma);
+            g2.setColor(colorB);
+            g2.draw(forma);
             if (forma instanceof Linea) {
+                String tamanio = String.valueOf(PanelBarrasDeslizantesBorde.getTamanioBorde());
+                g2.setStroke(new BasicStroke(PanelBarrasDeslizantesBorde.getTamanioBorde()));
                 g2.setColor(colorB);
                 g2.draw(forma);
             } else {
-                /*String tamanio = String.valueOf(PanelBarrasDeslizantesBorde.getTamanioBorde());
-                System.out.println(tamanio);
-                g2.setStroke(new BasicStroke(PanelBarrasDeslizantesBorde.getTamanioBorde()));*/
-                g2.setColor(colorB);
-                System.out.println(forma);
-                g2.draw(forma);
+                String tamanio = String.valueOf(PanelBarrasDeslizantesBorde.getTamanioBorde());
+                g2.setStroke(new BasicStroke(PanelBarrasDeslizantesBorde.getTamanioBorde()));
                 g2.setColor(colorR);
-                g2.fill(forma);
+                System.out.println(dibujos.size());
+                for(int i=0;i<dibujos.size();i++){
+                    g2.fill(dibujos.get(i).getForma());
+                }
+                g2.setColor(colorB);
+                for(int i=0;i<dibujos.size();i++){
+                    g2.draw(dibujos.get(i).getForma());
+                }
             }
         }
     }
@@ -108,79 +128,81 @@ public class Tapiz extends JPanel implements MouseListener, MouseMotionListener 
     public void mouseDragged(MouseEvent e) {
         int OFFSET = 1;
         if (cuadrado) {
+            //repaint(x, y, ancho + OFFSET, alto + OFFSET);
             f = new Point(e.getX(), e.getY());
             Cuadrado rec = new Cuadrado(in, f, colorR, colorB);
+            x = rec.getInicio().x;
+            y = rec.getInicio().y;
+            alto = rec.getAlto();
+            ancho = rec.getAncho();
             forma = rec.devolverCuadrado();
-            //this.repaint();
-            repaint(in.x, in.y, rec.getAncho() + OFFSET, rec.getAlto() + OFFSET);
-        }else if(linea){
-             f = new Point(e.getX(), e.getY());
-             Linea l = new Linea(in,f);
-             forma = l.devolverLinea();
-             repaint(in.x, in.y,l.calcularLargo()+OFFSET,l.calcularAlto()+OFFSET);
-        }else if(circulo){
+            //repaint(e.getX(), e.getY(), rec.calcularAncho(), rec.calcularAlto());
+        } else if (linea) {
             f = new Point(e.getX(), e.getY());
-            Circulo c = new Circulo(in,f);
+            Linea l = new Linea(in, f);
+            forma = l.devolverLinea();
+            repaint(in.x, in.y, l.calcularLargo() + OFFSET, l.calcularAlto() + OFFSET);
+        } else if (circulo) {
+            repaint(x, y, ancho + OFFSET, alto + OFFSET);
+            f = new Point(e.getX(), e.getY());
+            Circulo c = new Circulo(in, f);
+            x = c.getInicio().x;
+            y = c.getInicio().y;
+            alto = c.getAlto();
+            ancho = c.getAncho();
             forma = c.devolverElipse();
-            repaint(in.x, in.y,c.calcularAncho()+OFFSET,c.calcularAlto()+OFFSET);
-        }else if(cuadradoRedondeado){
+            repaint(in.x, in.y, c.calcularAncho(), c.calcularAlto() );
+        } else if (cuadradoRedondeado) {
             f = new Point(e.getX(), e.getY());
-            RectanguloRedondeado rr = new RectanguloRedondeado(in,f);
+            RectanguloRedondeado rr = new RectanguloRedondeado(in, f);
             forma = rr.devolverRectangulo();
-            repaint(in.x, in.y,rr.calcularLargo()+OFFSET,rr.calcularAlto()+OFFSET);
+            repaint(in.x, in.y, rr.calcularLargo() + OFFSET, rr.calcularAlto() + OFFSET);
         }
+        repaint();
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-
+        
+        PanelPixeles.setX(e.getX());
+        PanelPixeles.setY(e.getY());
+        PanelPixeles.repintar();
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
         if (cuadrado || linea || circulo || cuadradoRedondeado) {
             in = new Point(e.getX(), e.getY());
-        }else if(poligono){
-            System.out.println(clicks);
-            System.out.println(PanelBarrasDeslizantesLados.getLados());
-            if(puntos==null){;
-                puntos = new Point[PanelBarrasDeslizantesLados.getLados()+1];
-            }
-            puntos[clicks]=new Point(e.getX(), e.getY());
-            if(clicks==PanelBarrasDeslizantesLados.getLados()){
-                System.out.println(puntos.length);
-                Poligono p= new Poligono(puntos, PanelBarrasDeslizantesLados.getLados());
-                forma=p.devolverPoligono();
-                repaint(puntos[0].x, puntos[0].y,500,500);
-                clicks=0;
-            }else{
-                  clicks++;
+        } else if (poligono) {
+            in = new Point(e.getX(), e.getY());
+            puntos.add(in);
+            lados++;
+            if (e.getClickCount() == 2) {
+                Poligono p = new Poligono(puntos, lados);
+                forma = p.devolverPoligono();
+                repaint(in.x, in.y, 800, 800);
             }
         }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
+          dibujos.add(new Objeto(forma, true));
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-
     }
 
     public Shape getForma() {
         return forma;
     }
-
 }

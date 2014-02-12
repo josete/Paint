@@ -8,6 +8,7 @@ package Formas;
 
 import java.awt.Point;
 import java.awt.Polygon;
+import java.util.ArrayList;
 
 /**
  *
@@ -15,13 +16,13 @@ import java.awt.Polygon;
  */
 public class Poligono {
     
-    Point[] puntos;
+    ArrayList<Point> puntos;
     int lados;
     
     int[] x=null;
     int[] y=null;
     
-    public Poligono(Point[] puntos,int lados){
+    public Poligono(ArrayList<Point> puntos,int lados){
         this.puntos=puntos;
         this.lados=lados;
         getX();
@@ -29,16 +30,16 @@ public class Poligono {
     }
     
     public void getX(){
-        x = new int[puntos.length];
-        for(int i=0;i<puntos.length;i++){
-            x[i]=(int) puntos[i].getX();
+        x = new int[puntos.size()];
+        for(int i=0;i<puntos.size();i++){
+            x[i]=(int) puntos.get(i).getX();
         }
     }
     
     public void getY(){
-        y = new int[puntos.length];
-        for(int i=0;i<puntos.length;i++){
-            y[i]=(int) puntos[i].getY();
+        y = new int[puntos.size()];
+        for(int i=0;i<puntos.size();i++){
+            y[i]=(int) puntos.get(i).getY();
         }
     }
     
