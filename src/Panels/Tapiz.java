@@ -7,6 +7,7 @@ package Panels;
 
 import Formas.Circulo;
 import Formas.Cuadrado;
+import Formas.Curva;
 import Formas.Linea;
 import Formas.Poligono;
 import Formas.RectanguloRedondeado;
@@ -21,9 +22,12 @@ import java.awt.Shape;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.geom.Line2D;
+import java.awt.geom.QuadCurve2D;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+import sun.awt.geom.Curve;
 
 /**
  *
@@ -42,6 +46,7 @@ public class Tapiz extends JPanel implements MouseListener, MouseMotionListener 
     static public boolean circulo = false;
     static public boolean cuadradoRedondeado = false;
     static public boolean poligono = false;
+    static public boolean curva = false;
     private Shape forma = null;
     Point in;
     Point f;
@@ -55,11 +60,11 @@ public class Tapiz extends JPanel implements MouseListener, MouseMotionListener 
     int y = 0;
     int alto = 0;
     int ancho = 0;
+    Linea lC;
 
     public Tapiz() {
 
         setBorder(BorderFactory.createLineBorder(colorB));
-
         /*addMouseListener(new MouseAdapter() {
          public void mousePressed(MouseEvent e) {
          moveSquare(e.getX(), e.getY());
@@ -93,31 +98,29 @@ public class Tapiz extends JPanel implements MouseListener, MouseMotionListener 
 
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        /*g.setColor(colorR);
-         g.fillRect(squareX, squareY, squareW, squareH);
-         g.setColor(colorB);
-         g.drawRect(squareX, squareY, squareW, squareH);*/
         Graphics2D g2 = (Graphics2D) g;
         if (forma != null) {
-            g2.setColor(colorR);
-            g2.fill(forma);
-            g2.setColor(colorB);
-            g2.draw(forma);
-            if (forma instanceof Linea) {
-                String tamanio = String.valueOf(PanelBarrasDeslizantesBorde.getTamanioBorde());
-                g2.setStroke(new BasicStroke(PanelBarrasDeslizantesBorde.getTamanioBorde()));
+            if (forma instanceof Line2D || forma instanceof QuadCurve2D) {
                 g2.setColor(colorB);
                 g2.draw(forma);
+                for (int i = 0; i < dibujos.size(); i++) {
+                    if (dibujos.get(i).getForma() instanceof Line2D || dibujos.get(i).getForma() instanceof QuadCurve2D) {
+                        g2.setStroke(new BasicStroke(dibujos.get(i).getGrosor()));
+                        g2.draw(dibujos.get(i).getForma());
+                    }
+                }
             } else {
-                String tamanio = String.valueOf(PanelBarrasDeslizantesBorde.getTamanioBorde());
-                g2.setStroke(new BasicStroke(PanelBarrasDeslizantesBorde.getTamanioBorde()));
                 g2.setColor(colorR);
-                System.out.println(dibujos.size());
-                for(int i=0;i<dibujos.size();i++){
+                g2.fill(forma);
+                g2.setColor(colorB);
+                g2.draw(forma);
+                for (int i = 0; i < dibujos.size(); i++) {
+                    g2.setColor(dibujos.get(i).getFondo());
                     g2.fill(dibujos.get(i).getForma());
                 }
-                g2.setColor(colorB);
-                for(int i=0;i<dibujos.size();i++){
+                for (int i = 0; i < dibujos.size(); i++) {
+                    g2.setStroke(new BasicStroke(dibujos.get(i).getGrosor()));
+                    g2.setColor(dibujos.get(i).getLinea());
                     g2.draw(dibujos.get(i).getForma());
                 }
             }
@@ -137,11 +140,12 @@ public class Tapiz extends JPanel implements MouseListener, MouseMotionListener 
             ancho = rec.getAncho();
             forma = rec.devolverCuadrado();
             //repaint(e.getX(), e.getY(), rec.calcularAncho(), rec.calcularAlto());
-        } else if (linea) {
+        } else if (linea || curva) {
             f = new Point(e.getX(), e.getY());
             Linea l = new Linea(in, f);
+            lC = l;
             forma = l.devolverLinea();
-            repaint(in.x, in.y, l.calcularLargo() + OFFSET, l.calcularAlto() + OFFSET);
+            //repaint(in.x, in.y, l.calcularLargo() + OFFSET, l.calcularAlto() + OFFSET);
         } else if (circulo) {
             repaint(x, y, ancho + OFFSET, alto + OFFSET);
             f = new Point(e.getX(), e.getY());
@@ -151,19 +155,19 @@ public class Tapiz extends JPanel implements MouseListener, MouseMotionListener 
             alto = c.getAlto();
             ancho = c.getAncho();
             forma = c.devolverElipse();
-            repaint(in.x, in.y, c.calcularAncho(), c.calcularAlto() );
+            //repaint(in.x, in.y, c.calcularAncho(), c.calcularAlto());
         } else if (cuadradoRedondeado) {
             f = new Point(e.getX(), e.getY());
             RectanguloRedondeado rr = new RectanguloRedondeado(in, f);
             forma = rr.devolverRectangulo();
-            repaint(in.x, in.y, rr.calcularLargo() + OFFSET, rr.calcularAlto() + OFFSET);
+            //repaint(in.x, in.y, rr.calcularLargo() + OFFSET, rr.calcularAlto() + OFFSET);
         }
         repaint();
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        
+
         PanelPixeles.setX(e.getX());
         PanelPixeles.setY(e.getY());
         PanelPixeles.repintar();
@@ -171,11 +175,20 @@ public class Tapiz extends JPanel implements MouseListener, MouseMotionListener 
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        if (curva) {
+            if (e.getClickCount() == 2) {
+                System.out.println(forma.getBounds2D().getY());
+                Curva curva2 = new Curva(lC.getInicio().x, lC.getInicio().y, e.getX(), e.getY(), lC.getFin().x, lC.getFin().y);
+                forma = curva2.devolverLinea();
+                dibujos.add(new Objeto(forma, true, (int) PanelBarrasDeslizantesBorde.getTamanioBorde(), colorR, colorB));
+                repaint();
+            }
+        }
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if (cuadrado || linea || circulo || cuadradoRedondeado) {
+        if (cuadrado || linea || circulo || cuadradoRedondeado || curva) {
             in = new Point(e.getX(), e.getY());
         } else if (poligono) {
             in = new Point(e.getX(), e.getY());
@@ -191,7 +204,10 @@ public class Tapiz extends JPanel implements MouseListener, MouseMotionListener 
 
     @Override
     public void mouseReleased(MouseEvent e) {
-          dibujos.add(new Objeto(forma, true));
+        if (curva) {
+        } else {
+            dibujos.add(new Objeto(forma, true, (int) PanelBarrasDeslizantesBorde.getTamanioBorde(), colorR, colorB));
+        }
     }
 
     @Override

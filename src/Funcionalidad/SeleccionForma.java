@@ -49,4 +49,13 @@ public class SeleccionForma {
         Tapiz.cuadradoRedondeado=false;
         Tapiz.poligono=true;
     }
+
+    public static void activarCurva() {
+        Tapiz.linea =  false;
+        Tapiz.cuadrado = false;
+        Tapiz.circulo= false;
+        Tapiz.cuadradoRedondeado=false;
+        Tapiz.poligono=false;
+        Tapiz.curva=true;
+    }
 }

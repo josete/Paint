@@ -24,7 +24,7 @@ public class Linea {
         this.inicio = inicio;
         this.fin = fin;
     }
-
+ 
     public Point getInicio() {
         return inicio;
     }
@@ -57,6 +57,8 @@ public class Linea {
         return alto;
     }
 
+
+    
     
     
 }

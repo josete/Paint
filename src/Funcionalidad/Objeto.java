@@ -4,6 +4,7 @@
  */
 package Funcionalidad;
 
+import java.awt.Color;
 import java.awt.Shape;
 
 /**
@@ -14,11 +15,19 @@ public class Objeto {
     
     Shape forma;
     boolean visible;
+    int grosor;
+    Color fondo;
+    Color linea;
 
-    public Objeto(Shape forma, boolean visible) {
+    public Objeto(Shape forma, boolean visible, int grosor, Color fondo, Color linea) {
         this.forma = forma;
         this.visible = visible;
+        this.grosor = grosor;
+        this.fondo = fondo;
+        this.linea = linea;
     }
+
+    
 
     public Shape getForma() {
         return forma;
@@ -35,6 +44,33 @@ public class Objeto {
     public void setVisible(boolean visible) {
         this.visible = visible;
     }
+
+    public int getGrosor() {
+        return grosor;
+    }
+
+    public void setGrosor(int grosor) {
+        this.grosor = grosor;
+    }
+
+    public Color getFondo() {
+        return fondo;
+    }
+
+    public void setFondo(Color fondo) {
+        this.fondo = fondo;
+    }
+
+    public Color getLinea() {
+        return linea;
+    }
+
+    public void setLinea(Color linea) {
+        this.linea = linea;
+    }
+    
+    
+    
     
     
 }
