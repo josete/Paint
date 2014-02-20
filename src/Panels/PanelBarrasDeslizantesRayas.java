@@ -14,12 +14,12 @@ import javax.swing.event.ChangeListener;
  *
  * @author dam
  */
-public class PanelBarrasDeslizantesLados extends JPanel implements ChangeListener{
+public class PanelBarrasDeslizantesRayas extends JPanel implements ChangeListener{
     
     JSlider slider;
     static int lados;
-    public PanelBarrasDeslizantesLados(){
-        JLabel label = new JLabel("Numero de lados");
+    public PanelBarrasDeslizantesRayas(){
+        JLabel label = new JLabel("Tipo de linea");
         this.add(label);
         slider = new JSlider(JSlider.VERTICAL, 0, 20, 0); 
         slider.setInverted(false); 

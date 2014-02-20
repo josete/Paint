@@ -18,6 +18,8 @@ public class SeleccionForma {
         Tapiz.linea =  false;
         Tapiz.circulo = false;
         Tapiz.cuadradoRedondeado=false;
+        Tapiz.curva=false;
+        Tapiz.freeLine=false;
         Tapiz.cuadrado=true;
     }
     
@@ -25,6 +27,8 @@ public class SeleccionForma {
         Tapiz.cuadrado =  false;
         Tapiz.circulo = false;
         Tapiz.cuadradoRedondeado=false;
+        Tapiz.curva=false;
+        Tapiz.freeLine=false;
         Tapiz.linea=true;
     }
     
@@ -32,6 +36,8 @@ public class SeleccionForma {
         Tapiz.linea =  false;
         Tapiz.cuadrado = false;
         Tapiz.cuadradoRedondeado=false;
+        Tapiz.curva=false;
+        Tapiz.freeLine=false;
         Tapiz.circulo=true;
     }
     
@@ -39,6 +45,8 @@ public class SeleccionForma {
         Tapiz.linea =  false;
         Tapiz.cuadrado = false;
         Tapiz.circulo= false;
+        Tapiz.curva=false;
+        Tapiz.freeLine=false;
         Tapiz.cuadradoRedondeado=true;
     }
     
@@ -47,6 +55,8 @@ public class SeleccionForma {
         Tapiz.cuadrado = false;
         Tapiz.circulo= false;
         Tapiz.cuadradoRedondeado=false;
+        Tapiz.curva=false;
+        Tapiz.freeLine=false;
         Tapiz.poligono=true;
     }
 
@@ -56,6 +66,21 @@ public class SeleccionForma {
         Tapiz.circulo= false;
         Tapiz.cuadradoRedondeado=false;
         Tapiz.poligono=false;
+        Tapiz.freeLine=false;
         Tapiz.curva=true;
+    }
+    
+    public static void freeLine(){
+        Tapiz.linea =  false;
+        Tapiz.cuadrado = false;
+        Tapiz.circulo= false;
+        Tapiz.cuadradoRedondeado=false;
+        Tapiz.poligono=false;
+        Tapiz.curva=false;
+        Tapiz.freeLine=true;
+    }
+    public static void borrar(){
+            Tapiz.dibujos.clear();
+            
     }
 }

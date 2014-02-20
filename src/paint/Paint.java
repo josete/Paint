@@ -7,7 +7,9 @@
 package paint;
 
 import Panels.PanelBarrasDeslizantesBorde;
-import Panels.PanelBarrasDeslizantesLados;
+import Panels.PanelBarrasDeslizantesRayas;
+import Panels.PanelBorrar;
+import Panels.PanelLibre;
 import Panels.PanelBotonesColores2;
 import Panels.PanelColores;
 import Panels.PanelFormas;
@@ -40,6 +42,7 @@ public class Paint {
         SwingUtilities.isEventDispatchThread();
         JFrame f = new JFrame("Paint");
         f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        f.setExtendedState(JFrame.MAXIMIZED_BOTH);
         f.setLayout(new BorderLayout());
         //Colores y formas
         JPanel colores = new JPanel();
@@ -54,11 +57,16 @@ public class Paint {
         f.setVisible(true);
         //Barras deslizantes
         JPanel panelBarras = new JPanel(new BorderLayout());
-        panelBarras.add(new PanelBarrasDeslizantesLados(),BorderLayout.NORTH);
+        panelBarras.add(new PanelBarrasDeslizantesRayas(),BorderLayout.NORTH);
         panelBarras.add(new PanelBarrasDeslizantesBorde(),BorderLayout.SOUTH);
+        JPanel paneldeBorrar = new JPanel(new BorderLayout());
+        paneldeBorrar.add(new PanelLibre(),BorderLayout.NORTH);
+        paneldeBorrar.add(new PanelBorrar(),BorderLayout.SOUTH);
+        panelBarras.add(paneldeBorrar,BorderLayout.CENTER);
         f.add(panelBarras,BorderLayout.WEST);
         //Panel pixeles
         f.add(new PanelPixeles(),BorderLayout.SOUTH);
     }
     
 }
+
