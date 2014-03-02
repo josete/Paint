@@ -11,6 +11,7 @@ import Formas.Curva;
 import Formas.Linea;
 import Formas.Poligono;
 import Formas.RectanguloRedondeado;
+import Funcionalidad.MoverFigura;
 import Funcionalidad.Objeto;
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -80,16 +81,6 @@ public class Tapiz extends JPanel implements MouseListener, MouseMotionListener{
         this.addMouseMotionListener(this);
     }
 
-    /* private void moveSquare(int x, int y) {
-     int OFFSET = 1;
-     if ((squareX != x) || (squareY != y)) {
-     repaint(squareX, squareY, squareW + OFFSET, squareH + OFFSET);
-     squareX = x;
-     squareY = y;
-     repaint(squareX, squareY, squareW + OFFSET, squareH + OFFSET);
-     }
-
-     }*/
     public Dimension getPreferredSize() {
         return new Dimension(250, 200);
     }
@@ -214,6 +205,8 @@ public class Tapiz extends JPanel implements MouseListener, MouseMotionListener{
         }else if (freeLine) {
                 gp = new GeneralPath();
                 gp.moveTo((int) e.getX(), (int) e.getY());
+        }else{
+            MoverFigura.saberSiDentro(e.getPoint());
         }
     }
 
@@ -222,6 +215,7 @@ public class Tapiz extends JPanel implements MouseListener, MouseMotionListener{
         if (curva) {
         } else {
             // gp.closePath();
+            cuadrado=false;
             dibujos.add(new Objeto(forma, true, (int) PanelBarrasDeslizantesBorde.getTamanioBorde(), colorR, colorB));
         }
     }
