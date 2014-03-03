@@ -14,6 +14,7 @@ import Panels.PanelBotonesColores2;
 import Panels.PanelColores;
 import Panels.PanelFormas;
 import Panels.PanelPixeles;
+import Panels.PanelSeleccionar;
 import Panels.Tapiz;
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
@@ -59,8 +60,10 @@ public class Paint {
         JPanel panelBarras = new JPanel(new BorderLayout());
         panelBarras.add(new PanelBarrasDeslizantesRayas(),BorderLayout.NORTH);
         panelBarras.add(new PanelBarrasDeslizantesBorde(),BorderLayout.SOUTH);
+        //Borrar, free , seleccionar
         JPanel paneldeBorrar = new JPanel(new BorderLayout());
         paneldeBorrar.add(new PanelLibre(),BorderLayout.NORTH);
+        paneldeBorrar.add(new PanelSeleccionar(),BorderLayout.CENTER);
         paneldeBorrar.add(new PanelBorrar(),BorderLayout.SOUTH);
         panelBarras.add(paneldeBorrar,BorderLayout.CENTER);
         f.add(panelBarras,BorderLayout.WEST);

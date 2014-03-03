@@ -41,7 +41,7 @@ import javax.swing.JPanel;
  *
  * @author Familia
  */
-public class Tapiz extends JPanel implements MouseListener, MouseMotionListener{
+public class Tapiz extends JPanel implements MouseListener, MouseMotionListener {
 
     private int squareX = 50;
     private int squareY = 50;
@@ -56,6 +56,7 @@ public class Tapiz extends JPanel implements MouseListener, MouseMotionListener{
     static public boolean poligono = false;
     static public boolean curva = false;
     static public boolean freeLine = false;
+    static public boolean seleccionar = false;
     private Shape forma = null;
     Point in;
     Point f;
@@ -73,6 +74,7 @@ public class Tapiz extends JPanel implements MouseListener, MouseMotionListener{
     int grosor;
     GeneralPath gp = null;
     boolean algo = false;
+    int contadorLados = 1;
 
     public Tapiz() {
         setBorder(BorderFactory.createLineBorder(colorB));
@@ -165,9 +167,14 @@ public class Tapiz extends JPanel implements MouseListener, MouseMotionListener{
         } else if (freeLine) {
             forma = gp;
             gp.lineTo((int) e.getX(), (int) e.getY());
-        }else{
+        } else if (seleccionar) {
             this.setCursor(new Cursor(Cursor.MOVE_CURSOR));
             forma = MoverFigura.mover(e.getPoint());
+        } else if (poligono) {
+            forma = gp;
+            /*int contadorLados = 1;
+             Point punto = new Point(e.getX(), e.getY());
+             gp.append(new Line2D.Double(in, punto),true);*/
         }
         repaint();
     }
@@ -197,29 +204,43 @@ public class Tapiz extends JPanel implements MouseListener, MouseMotionListener{
     public void mousePressed(MouseEvent e) {
         if (cuadrado || linea || circulo || cuadradoRedondeado || curva) {
             in = new Point(e.getX(), e.getY());
+        } else if (freeLine) {
+            gp = new GeneralPath();
+            gp.moveTo((int) e.getX(), (int) e.getY());
+        } else if (seleccionar) {
+            MoverFigura.setP1p(e.getPoint());
         } else if (poligono) {
-            in = new Point(e.getX(), e.getY());
-            puntos.add(in);
-            lados++;
-            if (e.getClickCount() == 2) {
-                Poligono p = new Poligono(puntos, lados);
-                forma = p.devolverPoligono();
-                repaint(in.x, in.y, 800, 800);
-            } 
-        }else if (freeLine) {
+            if (contadorLados == 1) {
                 gp = new GeneralPath();
                 gp.moveTo((int) e.getX(), (int) e.getY());
-        }else{
-            MoverFigura.setP1p(e.getPoint());
+                in = new Point(e.getX(), e.getY());
+                f = new Point(e.getX(), e.getY());
+                gp.append(new Line2D.Double(in, f), true);
+            }else{
+                Point punto2 = new Point(e.getX(), e.getY());
+                gp.append(new Line2D.Double(f, punto2), true);
+                f=punto2;
+            }
+            
+            if(e.getClickCount()==2){
+                gp.closePath();
+                forma=gp;
+                gp=null;
+                dibujos.add(new Objeto(forma, true, (int) PanelBarrasDeslizantesBorde.getTamanioBorde(), colorR, colorB));
+                contadorLados=1;
+            }
+            
+            System.out.println(contadorLados);
+            contadorLados++;
+
         }
+        repaint();
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        if (curva) {
+        if (curva || poligono) {
         } else {
-            // gp.closePath();
-            cuadrado=false;
             this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             dibujos.add(new Objeto(forma, true, (int) PanelBarrasDeslizantesBorde.getTamanioBorde(), colorR, colorB));
         }

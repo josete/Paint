@@ -20,6 +20,7 @@ public class SeleccionForma {
         Tapiz.cuadradoRedondeado=false;
         Tapiz.curva=false;
         Tapiz.freeLine=false;
+        Tapiz.seleccionar=false;
         Tapiz.cuadrado=true;
     }
     
@@ -29,6 +30,7 @@ public class SeleccionForma {
         Tapiz.cuadradoRedondeado=false;
         Tapiz.curva=false;
         Tapiz.freeLine=false;
+        Tapiz.seleccionar=false;
         Tapiz.linea=true;
     }
     
@@ -38,6 +40,7 @@ public class SeleccionForma {
         Tapiz.cuadradoRedondeado=false;
         Tapiz.curva=false;
         Tapiz.freeLine=false;
+        Tapiz.seleccionar=false;
         Tapiz.circulo=true;
     }
     
@@ -47,6 +50,7 @@ public class SeleccionForma {
         Tapiz.circulo= false;
         Tapiz.curva=false;
         Tapiz.freeLine=false;
+        Tapiz.seleccionar=false;
         Tapiz.cuadradoRedondeado=true;
     }
     
@@ -57,6 +61,7 @@ public class SeleccionForma {
         Tapiz.cuadradoRedondeado=false;
         Tapiz.curva=false;
         Tapiz.freeLine=false;
+        Tapiz.seleccionar=false;
         Tapiz.poligono=true;
     }
 
@@ -67,6 +72,7 @@ public class SeleccionForma {
         Tapiz.cuadradoRedondeado=false;
         Tapiz.poligono=false;
         Tapiz.freeLine=false;
+        Tapiz.seleccionar=false;
         Tapiz.curva=true;
     }
     
@@ -77,10 +83,22 @@ public class SeleccionForma {
         Tapiz.cuadradoRedondeado=false;
         Tapiz.poligono=false;
         Tapiz.curva=false;
-        Tapiz.freeLine=true;
+        Tapiz.seleccionar=false;
+        Tapiz.freeLine=true;   
     }
     public static void borrar(){
             Tapiz.dibujos.clear();
             
+    }
+
+    public static void seleccionar() {
+        Tapiz.linea =  false;
+        Tapiz.cuadrado = false;
+        Tapiz.circulo= false;
+        Tapiz.cuadradoRedondeado=false;
+        Tapiz.poligono=false;
+        Tapiz.curva=false;
+        Tapiz.freeLine=false;
+        Tapiz.seleccionar=true;
     }
 }

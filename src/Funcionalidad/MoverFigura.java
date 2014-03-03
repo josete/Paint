@@ -5,11 +5,18 @@
  */
 package Funcionalidad;
 
+import Formas.Circulo;
 import Formas.Cuadrado;
+import Formas.Linea;
+import Formas.RectanguloRedondeado;
 import Panels.Tapiz;
 import java.awt.Color;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.Shape;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Line2D;
+import java.awt.geom.RoundRectangle2D;
 
 /**
  *
@@ -30,27 +37,26 @@ public class MoverFigura {
         double x = p.getX();
         double y = p.getY();
         boolean dentro = false;
-        int numero= 0;
-        for (int i = 0; i < Tapiz.dibujos.size(); i++) {
-            x0 = Tapiz.dibujos.get(i).getForma().getBounds2D().getX();
-            y0 = Tapiz.dibujos.get(i).getForma().getBounds2D().getY();
-            ancho = (int)Tapiz.dibujos.get(i).getForma().getBounds2D().getWidth();
-            alto = (int)Tapiz.dibujos.get(i).getForma().getBounds2D().getHeight();
+        int numero= Tapiz.dibujos.size()-1;
+        //for (int i = 0; i < Tapiz.dibujos.size(); i++) {
+            x0 = Tapiz.dibujos.get(numero).getForma().getBounds2D().getX();
+            y0 = Tapiz.dibujos.get(numero).getForma().getBounds2D().getY();
+            ancho = (int)Tapiz.dibujos.get(numero).getForma().getBounds2D().getWidth();
+            alto = (int)Tapiz.dibujos.get(numero).getForma().getBounds2D().getHeight();
             double xf = x0 + ancho;
             double yf = y0 + alto;
             if (x >= x0 && x <= xf) {
                 if (y >= y0 && y <= yf) {
                     dentro = true;
-                    forma = Tapiz.dibujos.get(i).getForma();
-                    numero = i;
+                    forma = Tapiz.dibujos.get(numero).getForma();
                 }
-            }
+            //}
         }
 
         Tapiz.dibujos.remove(numero);
         
         if (dentro) {
-            System.out.println("El raton está dentro");
+            
         }
 
         return dentro;
@@ -64,8 +70,16 @@ public class MoverFigura {
         Point p0 = new Point((int)destinox, (int)destinoy);
         Point pf = new Point((int)destinox+ancho, (int)destinoy+alto);
         
-        forma = new Cuadrado(p0, pf, Color.black, Color.black).devolverCuadrado();
         
+        if(forma instanceof Rectangle){
+            forma = new Cuadrado(p0, pf, Color.black, Color.black).devolverCuadrado();
+        }else if(forma instanceof Ellipse2D){
+            forma = new Circulo(p0, pf).devolverElipse();
+        }else if(forma instanceof RoundRectangle2D){
+            forma = new RectanguloRedondeado(p0, pf).devolverRectangulo();
+        }else if(forma instanceof Line2D){
+            forma = new Linea(p0, pf).devolverLinea();
+        }
         
         return forma;
     }
