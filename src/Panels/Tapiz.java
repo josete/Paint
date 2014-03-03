@@ -15,6 +15,7 @@ import Funcionalidad.MoverFigura;
 import Funcionalidad.Objeto;
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -164,6 +165,9 @@ public class Tapiz extends JPanel implements MouseListener, MouseMotionListener{
         } else if (freeLine) {
             forma = gp;
             gp.lineTo((int) e.getX(), (int) e.getY());
+        }else{
+            this.setCursor(new Cursor(Cursor.MOVE_CURSOR));
+            forma = MoverFigura.mover(e.getPoint());
         }
         repaint();
     }
@@ -206,7 +210,7 @@ public class Tapiz extends JPanel implements MouseListener, MouseMotionListener{
                 gp = new GeneralPath();
                 gp.moveTo((int) e.getX(), (int) e.getY());
         }else{
-            MoverFigura.saberSiDentro(e.getPoint());
+            MoverFigura.setP1p(e.getPoint());
         }
     }
 
@@ -216,6 +220,7 @@ public class Tapiz extends JPanel implements MouseListener, MouseMotionListener{
         } else {
             // gp.closePath();
             cuadrado=false;
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             dibujos.add(new Objeto(forma, true, (int) PanelBarrasDeslizantesBorde.getTamanioBorde(), colorR, colorB));
         }
     }
