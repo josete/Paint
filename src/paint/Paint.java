@@ -13,6 +13,7 @@ import Panels.PanelLibre;
 import Panels.PanelBotonesColores2;
 import Panels.PanelColores;
 import Panels.PanelFormas;
+import Panels.PanelGuardar;
 import Panels.PanelPixeles;
 import Panels.PanelSeleccionar;
 import Panels.Tapiz;
@@ -27,6 +28,7 @@ import javax.swing.SwingUtilities;
  */
 public class Paint {
 
+    public static Tapiz p;
     /**
      * @param args the command line arguments
      */
@@ -52,8 +54,10 @@ public class Paint {
         colores.add(new PanelColores(),BorderLayout.EAST);
         colores.add(new PanelFormas(),BorderLayout.WEST);
         f.add(colores,BorderLayout.NORTH);
+        
+        p = new Tapiz();
         //Tapiz
-        f.add(new Tapiz(),BorderLayout.CENTER);
+        f.add(p,BorderLayout.CENTER);
         f.pack();
         f.setVisible(true);
         //Barras deslizantes
@@ -68,7 +72,11 @@ public class Paint {
         panelBarras.add(paneldeBorrar,BorderLayout.CENTER);
         f.add(panelBarras,BorderLayout.WEST);
         //Panel pixeles
-        f.add(new PanelPixeles(),BorderLayout.SOUTH);
+        JPanel panelAbajo = new JPanel(new BorderLayout());
+        panelAbajo.add(new PanelPixeles(),BorderLayout.WEST);
+        panelAbajo.add(new PanelGuardar(),BorderLayout.EAST);
+        f.add(panelAbajo,BorderLayout.SOUTH);
+        
     }
     
 }

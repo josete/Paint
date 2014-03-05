@@ -14,18 +14,22 @@ import java.awt.Shape;
 public class Objeto {
     
     Shape forma;
-    boolean visible;
+    boolean relleno;
     int grosor;
     Color fondo;
     Color linea;
+    int dash;
 
-    public Objeto(Shape forma, boolean visible, int grosor, Color fondo, Color linea) {
+    public Objeto(Shape forma, boolean relleno, int grosor, Color fondo, Color linea, int dash) {
         this.forma = forma;
-        this.visible = visible;
+        this.relleno = relleno;
         this.grosor = grosor;
         this.fondo = fondo;
         this.linea = linea;
+        this.dash = dash;
     }
+
+    
 
     
 
@@ -38,11 +42,11 @@ public class Objeto {
     }
 
     public boolean isVisible() {
-        return visible;
+        return relleno;
     }
 
-    public void setVisible(boolean visible) {
-        this.visible = visible;
+    public void setVisible(boolean relleno) {
+        this.relleno = relleno;
     }
 
     public int getGrosor() {
@@ -68,6 +72,23 @@ public class Objeto {
     public void setLinea(Color linea) {
         this.linea = linea;
     }
+
+    public boolean isRelleno() {
+        return relleno;
+    }
+
+    public void setRelleno(boolean relleno) {
+        this.relleno = relleno;
+    }
+
+    public int getDash() {
+        return dash;
+    }
+
+    public void setDash(int dash) {
+        this.dash = dash;
+    }
+    
     
     
     

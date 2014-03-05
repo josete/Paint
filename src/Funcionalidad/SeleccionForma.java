@@ -7,6 +7,7 @@
 package Funcionalidad;
 
 import Panels.Tapiz;
+import paint.Paint;
 
 /**
  *
@@ -88,7 +89,7 @@ public class SeleccionForma {
     }
     public static void borrar(){
             Tapiz.dibujos.clear();
-            
+            Paint.p.repaint();
     }
 
     public static void seleccionar() {
@@ -101,4 +102,5 @@ public class SeleccionForma {
         Tapiz.freeLine=false;
         Tapiz.seleccionar=true;
     }
+    
 }

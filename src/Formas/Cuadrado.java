@@ -78,9 +78,9 @@ public class Cuadrado{
         return ancho;
     }
     
-    public int calcularAlto(){
-        
+    public int calcularAlto(){      
         alto = fin.y-inicio.y;
+        System.out.println("El alto es: "+alto);
         return alto;
     }
 
@@ -105,13 +105,19 @@ public class Cuadrado{
         Point intermedio;
         if(fin.x<inicio.x){
             intermedio = fin;
+            Point p = new Point(fin.x,inicio.y);
+            Point p2 = new Point(inicio.x, fin.y);
             fin=inicio;
             inicio=intermedio;
-        }/*else if(fin.y>inicio.y){
+        }else if(inicio.x>fin.x && inicio.y<fin.y){
+            //System.out.println("Hola");
             intermedio = fin;
-            fin=inicio;
-            inicio=intermedio;
-        }*/
+            Point p = new Point(inicio.x, fin.y);
+            Point p2 = new Point(fin.x, inicio.y);
+            fin=p2;
+            inicio=p;
+        }
+
     }
     
     
